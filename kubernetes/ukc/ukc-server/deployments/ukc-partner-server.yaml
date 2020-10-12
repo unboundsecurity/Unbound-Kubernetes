@@ -22,7 +22,7 @@ spec:
             - partner
             - ukc-ep
             - ukc-aux
-          image: unboundukc/ukc-server-dev:2007
+          image: unboundukc/ukc-server:2007-k8s
           # imagePullPolicy: Always
           envFrom:
             - configMapRef:

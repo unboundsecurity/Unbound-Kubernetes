@@ -22,7 +22,7 @@ spec:
             - aux
             - ukc-ep
             - ukc-partner
-          image: unboundukc/ukc-server-dev:2007
+          image: unboundukc/ukc-server:2007-k8s
           # imagePullPolicy: Always
           name: ukc-aux
           resources: {}

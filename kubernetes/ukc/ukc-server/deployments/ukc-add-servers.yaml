@@ -18,7 +18,7 @@ spec:
         - name: regcred
       containers:
         - name: add-ep
-          image: unboundukc/ukc-server-dev:2007
+          image: unboundukc/ukc-server:2007-k8s
           # imagePullPolicy: Always
           args:
             - add-ep
@@ -60,7 +60,7 @@ spec:
         - name: regcred
       containers:
         - name: add-partner
-          image: unboundukc/ukc-server-dev:2007
+          image: unboundukc/ukc-server:2007-k8s
           # imagePullPolicy: Always
           args:
             - add-partner

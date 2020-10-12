@@ -32,7 +32,7 @@ spec:
                 name: mongo-secrets
             - secretRef:
                 name: ukc-ep-secrets
-          image: unboundukc/ukc-server-dev:2007
+          image: unboundukc/ukc-server:2007-k8s
           # imagePullPolicy: Always
           name: ukc-ep
           ports:
