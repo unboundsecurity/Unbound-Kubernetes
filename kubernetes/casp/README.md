@@ -18,8 +18,8 @@ The CASP implementation is comprised of the following components:
 
 After installation, you can log into the CASP web interface and start using CASP!
 
-<a name="General-Prerequsites"></a>
-## General Prerequsites
+<a name="General-Prerequisites"></a>
+## General Prerequisites
 The following are required before installing CASP.
 
 1. An Infura project ID (only needed for Ethereum ledger access). See [Infura](https://infura.io/register).
@@ -33,11 +33,11 @@ The following are required before installing CASP.
 
 The Kubernetes secrets file contains default passwords and access tokens (Infura, BlockSet, Firebase), and should be configured as needed. See [Secrets file](casp-server/deployments/casp-secrets.yaml).
 
-The following parameters must be set or CASP will not start:
+The following parameters (which are listed above in the [General Prerequisites](#General-Prerequisites)) must be set or CASP will not start:
 
-- CASP_FIREBASE_TOKEN - Firebase token for push messaging.
+- CASP_FIREBASE_TOKEN - Firebase messaging token.
 - INFURA_PROJECTID - Infura project ID for Ethereum.
-- BLOCKSET_TOKEN - Blockset API token.
+- BLOCKSET_TOKEN - Blockset access token.
 
 
 A number of other items may be configured for UKC. See [Configmap file](casp-server/deployments/casp-configmap.yaml).
