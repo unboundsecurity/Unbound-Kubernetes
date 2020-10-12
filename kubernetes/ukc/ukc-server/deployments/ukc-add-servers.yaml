@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: add-ep
+spec:
+  serviceName: add-ep
+  replicas: 0
+  selector:
+    matchLabels:
+      app: add-ep
+  template:
+    metadata:
+      labels:
+        app: add-ep
+        comp: ukc-ep
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: add-ep
+          image: unboundukc/ukc-server-dev:2007
+          # imagePullPolicy: Always
+          args:
+            - add-ep
+            - add-partner
+            - ukc-ep
+          ports:
+            - containerPort: 443
+              name: ssh
+          envFrom:
+            - configMapRef:
+                name: ukc-settings
+            - secretRef:
+                name: ukc-ep-secrets
+            - configMapRef:
+                name: mongo-config
+            - secretRef:
+                name: mongo-secrets
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/scripts/ukc_delete_servers.sh", "ukc-ep"]
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: add-partner
+spec:
+  serviceName: add-partner
+  replicas: 0
+  selector:
+    matchLabels:
+      app: add-partner
+  template:
+    metadata:
+      labels:
+        app: add-partner
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: add-partner
+          image: unboundukc/ukc-server-dev:2007
+          # imagePullPolicy: Always
+          args:
+            - add-partner
+          ports:
+            - containerPort: 443
+              name: ssh
+          envFrom:
+            - configMapRef:
+                name: ukc-settings
+            - configMapRef:
+                name: mongo-config
+            - secretRef:
+                name: mongo-secrets

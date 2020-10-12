@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ukc-partner
+  name: ukc-partner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ukc-partner
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: ukc-partner
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - args:
+            - partner
+            - ukc-ep
+            - ukc-aux
+          image: unboundukc/ukc-server-dev:2007
+          # imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: ukc-settings          
+            - configMapRef:
+                name: mongo-config
+            - secretRef:
+                name: mongo-secrets
+          name: ukc-partner
+          resources: {}
+          volumeMounts:
+            - name: pr-lib
+              mountPath: /var/lib/ekm
+            - name: ep-casp-key
+              mountPath: /mnt/casp
+      volumes:
+        - name: pr-lib
+          persistentVolumeClaim:
+            claimName: ukc-pr-pvc
+        - name: ep-casp-key
+          configMap:
+            name: casp-public-key
+      hostname: ukc-partner
+      serviceAccountName: ""
+status: {}

@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ukc-ep
+spec:
+  type: ClusterIP
+  ports:
+    - name: "https"
+      port: 443
+    - name: "https-custom"
+      port: 8443
+    - name: "engine"
+      port: 6603
+  selector:
+    app: ukc-ep
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ukc-ui
+spec:
+  ports:
+    - name: "https"
+      port: 8443
+      targetPort: 8443
+  selector:
+    comp: ukc-ep
+  type: LoadBalancer

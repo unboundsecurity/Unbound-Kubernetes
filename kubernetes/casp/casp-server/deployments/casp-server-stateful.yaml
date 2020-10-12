@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: casp-server
+spec:
+  serviceName: casp-server
+  replicas: 1
+  selector:
+    matchLabels:
+      app: casp-server
+  template:
+    metadata:
+      labels:
+        app: casp-server
+        comp: casp-server
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: casp-server
+          image: unboundcasp/casp-dev:2007
+          # imagePullPolicy: Always
+          ports:
+            - containerPort: 443
+          envFrom:
+            - configMapRef:
+                name: casp-settings
+            - secretRef:
+                name: casp-secrets
+                optional: false
+            - configMapRef:
+                name: mongo-config
+            - secretRef:
+                name: mongo-secrets
+          volumeMounts:
+            - name: casp-config
+              mountPath: /mnt/casp
+      volumes:
+        - name: casp-config
+          persistentVolumeClaim:
+            claimName: casp-pv-claim

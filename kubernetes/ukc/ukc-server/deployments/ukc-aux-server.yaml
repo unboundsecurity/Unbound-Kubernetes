@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ukc-aux
+  name: ukc-aux
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ukc-aux
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: ukc-aux
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - args:
+            - aux
+            - ukc-ep
+            - ukc-partner
+          image: unboundukc/ukc-server-dev:2007
+          # imagePullPolicy: Always
+          name: ukc-aux
+          resources: {}
+          volumeMounts:
+            - name: aux-lib
+              mountPath: /var/lib/ekm
+      volumes:
+        - name: aux-lib
+          persistentVolumeClaim:
+            claimName: ukc-aux-pvc
+      hostname: ukc-aux
+      serviceAccountName: ""
+status: {}

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+spec:
+  serviceName: mongodb
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+        selector: mongodb-standalone
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo
+          envFrom:
+            - configMapRef:
+                name: mongo-config
+            - secretRef:
+                name: mongo-secrets
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - "sh"
+                  - "-c"
+                  - >
+                    echo 'conn = new Mongo();  db = conn.getDB("admin");'
+                    'db.auth("'$MONGO_INITDB_ROOT_USERNAME'","'$MONGO_INITDB_ROOT_PASSWORD'");'
+                    'db = conn.getDB("'$UNBOUND_MONGO_DB'"); db.createUser({user:"'$UNBOUND_MONGO_USER'",pwd:"'$UNBOUND_MONGO_PASSWORD'",roles:["readWrite"]});'
+                    > /tmp/mongo_init.js;
+                    sleep 10; mongo /tmp/mongo_init.js;
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  labels:
+    app: mongodb
+spec:
+  clusterIP: None
+  ports:
+    - name: mongo
+      port: 27017
+  selector:
+    app: mongodb

@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: add-ep
+  labels:
+    app: add-ep
+spec:
+  clusterIP: None
+  ports:
+    - name: ssh
+      port: 443
+  selector:
+    app: add-ep
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: add-partner
+  labels:
+    app: add-partner
+spec:
+  clusterIP: None
+  ports:
+    - name: ssh
+      port: 443
+  selector:
+    app: add-partner

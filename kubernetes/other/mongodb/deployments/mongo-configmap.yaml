@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-config
+data:
+  MONGO_INITDB_ROOT_USERNAME: admin
+  # Mongo DB connection settings for log collector
+  UNBOUND_MONGO_HOST: mongodb
+  UNBOUND_MONGO_PORT: "27017"
+  UNBOUND_MONGO_USER: unbound
+  UNBOUND_MONGO_DB: unboundLogDB

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ukc-partner
+  labels:
+    app: ukc-partner
+spec:
+  type: ClusterIP
+  ports:
+    - name: "https"
+      port: 443
+    - name: "engine"
+      port: 6603
+  selector:
+    app: ukc-partner

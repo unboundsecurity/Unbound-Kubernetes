@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ukc-ep-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10M
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ukc-pr-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10M
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ukc-aux-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10M

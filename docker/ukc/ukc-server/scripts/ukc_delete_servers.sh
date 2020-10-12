@@ -1,0 +1,10 @@
+#!/bin/bash
+
+UKC_EP=$1
+K8S_NAMESPACE="default"
+K8S_DOMAIN="svc.cluster.local"
+K8S_SUFFIX=$K8S_NAMESPACE.$K8S_DOMAIN
+SERVICE_NAME=${HOSTNAME%-*}
+SRV_FULL_NAME=$HOSTNAME.$SERVICE_NAME.$K8S_SUFFIX
+
+curl -k -X DELETE --user so@root:$UKC_PASSWORD "https://$UKC_EP/api/v1/servers/$SRV_FULL_NAME"

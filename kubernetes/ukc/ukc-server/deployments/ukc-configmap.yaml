@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: ukc
+  name: ukc-settings
+data:
+  UKC_TRACE: "on"
+  UKC_NOCERT: "true" # Allow password authentication for UKC clients
+  UKC_PARTITION: casp
+  UKC_CERTIFICATE_HOST_NAME: localhost # additional host name for UKC server certificate

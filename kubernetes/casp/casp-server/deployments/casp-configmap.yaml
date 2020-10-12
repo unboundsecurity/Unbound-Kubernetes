@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: casp-settings
+  labels:
+    app: casp-server
+data:
+  PGHOST: postgres
+  PGDATABASE: postgres
+  PGUSER: postgres
+  UKC_EP: ukc-ep
+  UKC_PARTITION: casp
+  CASP_ACCOUNT: CASP
+  CASP_TRACE_LOG: debug
