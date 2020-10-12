@@ -41,3 +41,9 @@ Each record contains the following fields:
 - "server" - the log origin
 - "message" - the log line
 - "time" - the timestemp
+
+## Known Issues
+
+The following known issue exists in this version of the repo:
+
+- Usage of external keystores is not supported with this version of the Kubernetes setup.
