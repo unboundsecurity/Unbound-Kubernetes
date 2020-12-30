@@ -1,7 +1,7 @@
 
 # Unbound-Kubernetes
 
-This repository enables deploying Unbound Tech products in a containerized manner using [Kubernetes](https://kubernetes.io/). This solution supports **UKC** and **CASP**. 
+This repository enables deploying Unbound Tech products in a containerized manner using [Kubernetes](https://kubernetes.io/). This solution supports **UKC** and **CASP**.
 
 **Note:** The CASP deployment includes UKC as subset.
 
@@ -29,9 +29,13 @@ Notes about the Kubernetes setup:
 - The *kubernetes* directory contains YAML files with Kubernetes definitions.
 - The UKC setup includes three UKC servers along with the option of scaling with more server pairs. See [UKC server description](kubernetes/ukc/README.md) for details.
 - The CASP setup includes a CASP server and CASP bots.
-- Scripts are provided to automate the Kubernetes deployment tasks. 
+- Scripts are provided to automate the Kubernetes deployment tasks.
 
+1. Create a kubernetes secret that gives you access to the ukc-server docker image unboundukc/ukc-server (which is hosted in private repository in docker hub registry).
+```bash
+kubectl create secret generic regcred --from-file=.dockerconfigjson=${HOME}/.docker/config.json --type=kubernetes.io/dockerconfigjson
+```
 1. Run `kubernetes/start-ukc.sh` to deploy UKC.
-2. Run `kubernetes/start-casp.sh` to deploy both CASP and UKC.
+1. Run `kubernetes/start-casp.sh` to deploy both CASP and UKC.
 
 There are also corresponding scripts to stop the servers and delete the setup.
