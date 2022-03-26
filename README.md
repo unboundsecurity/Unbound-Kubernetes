@@ -17,7 +17,7 @@ A Kubernetes cluster that is configured with `kubectl` access is required. See [
 - The CASP setup includes a CASP server and CASP bots.
 - Scripts are provided to automate the Kubernetes deployment tasks. 
 
-### Run these commands to set up Kubernates
+### Run these commands to set up Kubernetes
 1. Run the following command one time.
     ```
     kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v1/ --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
